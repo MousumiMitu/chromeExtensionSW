@@ -1,0 +1,46 @@
+{
+  "manifest_version": 3,
+  "name": "Swojon",
+  "version": "0.0.1",
+  "description": "A basic data scraper",
+  "author": "mousumitu@gmail.com",
+
+  "icons": {
+    "16": "images/logo.png",
+    "32": "images/logo.png",
+    "48": "images/logo.png",
+    "128": "images/logo.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "images/logo.png",
+      "24": "images/logo.png",
+      "32": "images/logo.png"
+    },
+    "default_title": "Generate an add to Swojon",
+    "default_popup": "popup.html",
+    "default_locale": "en"
+  },
+  "options_ui": {
+    "page": "options.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "tabs",
+    "activeTab",
+    "tabCapture",
+    "scripting"
+  ],
+  "host_permissions": ["https://*.facebook.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://*.facebook.com/*"],
+      "js": ["contentScript.js"],
+      "css": ["contentScript.css"]
+    }
+  ]
+}

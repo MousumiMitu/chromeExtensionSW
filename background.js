@@ -58,8 +58,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   }
 });
 
-let previousProductId = "";
-
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (
     tab.url &&
@@ -69,15 +67,10 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     const urlParameters = queryParameter[1];
     console.log(urlParameters);
 
-    if (urlParameters !== previousProductId) {
-      chrome.tabs.sendMessage(tabId, {
-        type: "NEW",
-        productId: urlParameters,
-      });
-
-      // Update the previous product ID
-      previousProductId = urlParameters;
-    }
+    chrome.tabs.sendMessage(tabId, {
+      type: "NEW",
+      productId: urlParameters,
+    });
   }
 });
 
@@ -98,13 +91,4 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 //   //   // Send the title to the popup
 //   //   chrome.runtime.sendMessage({ type: "SHOW_POPUP", title: message.title });
 //   // }
-// });
-
-// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-//   if (message.type === "NEW") {
-//     console.log("Received title:");
-
-//     chrome.runtime.sendMessage({ type: "SHOW_POPUP", title: message.title });
-
-//   }
 // });

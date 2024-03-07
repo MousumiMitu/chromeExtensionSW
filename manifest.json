@@ -6,18 +6,18 @@
   "author": "mousumitu@gmail.com",
 
   "icons": {
-    "16": "images/logo.png",
-    "32": "images/logo.png",
-    "48": "images/logo.png",
-    "128": "images/logo.png"
+    "16": "images/swojonLogo.png",
+    "32": "images/swojonLogo.png",
+    "48": "images/swojonLogo.png",
+    "128": "images/swojonLogo.png"
   },
   "action": {
     "default_icon": {
-      "16": "images/logo.png",
-      "24": "images/logo.png",
-      "32": "images/logo.png"
+      "16": "images/swojonLogo.png",
+      "24": "images/swojonLogo.png",
+      "32": "images/swojonLogo.png"
     },
-    "default_title": "Generate an add to Swojon",
+    "default_title": "Swojon Extension",
     "default_popup": "popup.html",
     "default_locale": "en"
   },

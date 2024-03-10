@@ -55,13 +55,40 @@ document.addEventListener("DOMContentLoaded", function () {
     "apiKeyAcceptedMessage"
   );
 
-  chrome.storage.local.get("apiKey", function (data) {
-    const apiKey = data.apiKey;
-    if (apiKey) {
-      apiKeyArea.style.display = "none";
-      apiKeyAcceptedMessage.style.display = "block";
+  // chrome.storage.local.get("apiKey", function (data) {
+  //   const apiKey = data.apiKey;
+  //   if (apiKey) {
+  //     apiKeyArea.style.display = "none";
+  //     apiKeyAcceptedMessage.style.display = "block";
+  //   }
+  // });
+
+  function updatePopupContent() {
+    chrome.storage.local.get("apiKey", function (data) {
+      const apiKey = data.apiKey;
+
+      if (apiKey) {
+        apiKeyArea.style.display = "none";
+        apiKeyAcceptedMessage.style.display = "block";
+      } else {
+        apiKeyArea.style.display = "block";
+        apiKeyAcceptedMessage.style.display = "none";
+      }
+    });
+  }
+
+  chrome.runtime.onMessage.addListener(function (
+    request,
+    sender,
+    sendResponse
+  ) {
+    if (request.type === "API_KEY_REMOVED") {
+      // Update the popup content when the API key is removed
+      updatePopupContent();
     }
   });
+
+  updatePopupContent();
 
   saveApiKeyButton.addEventListener("click", function () {
     const apiKey = apiKeyInput.value.trim();
@@ -77,5 +104,28 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       alert("Please enter a valid API key.");
     }
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const settingIcon = document.getElementById("settingIcon");
+  const settingBox = document.getElementById("settingBox");
+
+  settingIcon.addEventListener("click", function () {
+    settingBox.classList.toggle("active");
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const changeApiKeyBtn = document.getElementById("changeApiKeyBtn");
+
+  changeApiKeyBtn.addEventListener("click", function () {
+    // chrome.tabs.create({ url: "settings.html" });
+    chrome.windows.create({
+      type: "popup",
+      url: "settings.html",
+      width: 600,
+      height: 600,
+    });
   });
 });
